@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { Menu, X, GraduationCap } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -65,27 +64,15 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Auth buttons */}
+          {/* Auth button */}
           <div className="flex items-center gap-3">
-            <SignedOut>
-              <Link
-                href="/sign-in"
-                className="hidden sm:inline-flex items-center px-4 py-2 rounded-lg text-sm font-semibold text-white transition-colors"
-                style={{ backgroundColor: '#1B3A6B' }}
-              >
-                Ingresar
-              </Link>
-            </SignedOut>
-            <SignedIn>
-              <Link
-                href="/dashboard"
-                className="hidden sm:inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-white transition-colors"
-                style={{ backgroundColor: '#1B3A6B' }}
-              >
-                Portal
-              </Link>
-              <UserButton afterSignOutUrl="/" />
-            </SignedIn>
+            <Link
+              href="/sign-in"
+              className="hidden sm:inline-flex items-center px-4 py-2 rounded-lg text-sm font-semibold text-white transition-colors hover:opacity-90"
+              style={{ backgroundColor: '#1B3A6B' }}
+            >
+              Ingresar
+            </Link>
 
             {/* Mobile menu button */}
             <button
@@ -109,9 +96,7 @@ export default function Navbar() {
                 href={link.href}
                 className={cn(
                   'block px-3 py-2 rounded-md text-sm font-medium',
-                  pathname === link.href
-                    ? 'text-white'
-                    : 'text-gray-600'
+                  pathname === link.href ? 'text-white' : 'text-gray-600'
                 )}
                 style={pathname === link.href ? { backgroundColor: '#1B3A6B' } : {}}
                 onClick={() => setIsOpen(false)}
@@ -119,16 +104,14 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <SignedOut>
-              <Link
-                href="/sign-in"
-                className="block px-3 py-2 rounded-md text-sm font-semibold text-white text-center mt-2"
-                style={{ backgroundColor: '#1B3A6B' }}
-                onClick={() => setIsOpen(false)}
-              >
-                Ingresar al Portal
-              </Link>
-            </SignedOut>
+            <Link
+              href="/sign-in"
+              className="block px-3 py-2 rounded-md text-sm font-semibold text-white text-center mt-2"
+              style={{ backgroundColor: '#1B3A6B' }}
+              onClick={() => setIsOpen(false)}
+            >
+              Ingresar al Portal
+            </Link>
           </div>
         </div>
       )}

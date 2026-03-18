@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ClerkProvider } from '@clerk/nextjs'
 import './globals.css'
+
+// Clerk is loaded conditionally so the site builds in demo mode without keys
+const hasClerk = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,18 +19,29 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  if (hasClerk) {
+    const { ClerkProvider } = await import('@clerk/nextjs')
+    return (
+      <ClerkProvider>
+        <html lang="es">
+          <body className={`${inter.className} antialiased`}>
+            {children}
+          </body>
+        </html>
+      </ClerkProvider>
+    )
+  }
+
   return (
-    <ClerkProvider>
-      <html lang="es">
-        <body className={`${inter.className} antialiased`}>
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="es">
+      <body className={`${inter.className} antialiased`}>
+        {children}
+      </body>
+    </html>
   )
 }
