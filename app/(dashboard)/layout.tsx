@@ -22,7 +22,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
             <button className="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100 transition-colors relative">
               <Bell className="w-4 h-4" />
             </button>
-            <UserButton afterSignOutUrl="/" />
+            <UserButton />
           </div>
         </header>
 

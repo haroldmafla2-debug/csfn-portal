@@ -32,16 +32,17 @@ export async function GET(req: NextRequest) {
     .eq('estudiante_id', estudianteId)
     .eq('periodo', periodo)
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const buffer = await renderToBuffer(
     React.createElement(BoletinPDF, {
       estudiante,
       notas: notas || [],
       periodo,
       narrativaIA: narrativa,
-    })
+    }) as any
   )
 
-  return new NextResponse(buffer, {
+  return new NextResponse(buffer as unknown as BodyInit, {
     status: 200,
     headers: {
       'Content-Type': 'application/pdf',

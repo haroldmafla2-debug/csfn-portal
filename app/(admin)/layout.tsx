@@ -24,7 +24,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <button className="w-8 h-8 rounded-full flex items-center justify-center text-gray-400 hover:bg-gray-100">
               <Bell className="w-4 h-4" />
             </button>
-            <UserButton afterSignOutUrl="/" />
+            <UserButton />
           </div>
         </header>
         <main className="flex-1 overflow-y-auto p-6">

@@ -110,11 +110,10 @@ const styles = StyleSheet.create({
   tableCellBold: {
     fontFamily: 'Helvetica-Bold',
   },
-  notaText: (nota: number) => ({
+  notaText: {
     fontSize: 11,
     fontFamily: 'Helvetica-Bold',
-    color: nota >= 4.0 ? '#16a34a' : nota >= 3.0 ? '#d97706' : '#dc2626',
-  }),
+  },
   promedioRow: {
     flexDirection: 'row',
     backgroundColor: '#1B3A6B',
@@ -192,6 +191,10 @@ const styles = StyleSheet.create({
   },
 })
 
+function notaColor(nota: number) {
+  return nota >= 4.0 ? '#16a34a' : nota >= 3.0 ? '#d97706' : '#dc2626'
+}
+
 interface BoletinPDFProps {
   estudiante: Estudiante
   notas: Nota[]
@@ -258,7 +261,7 @@ export default function BoletinPDF({ estudiante, notas, periodo, narrativaIA }: 
               <Text style={{ ...styles.tableCell, flex: 3 }}>
                 {(nota.materia as { nombre: string } | undefined)?.nombre || '—'}
               </Text>
-              <Text style={{ ...styles.tableCell, ...styles.tableCellBold, flex: 1, textAlign: 'center', ...styles.notaText(nota.nota) }}>
+              <Text style={{ ...styles.tableCell, ...styles.tableCellBold, ...styles.notaText, flex: 1, textAlign: 'center', color: notaColor(nota.nota) }}>
                 {nota.nota.toFixed(1)}
               </Text>
               <Text style={{ ...styles.tableCell, flex: 1, textAlign: 'center', fontSize: 9 }}>
